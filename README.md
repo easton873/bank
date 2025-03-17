@@ -10,7 +10,7 @@ A common dice game we will be using for a bot fighting tournament.
 - Rolling a 2 doubles whatever is currently in the pot.  
 - If your first roll is a 1 or a 2, add what you got to the pot instead of following the previous two rules.
 
-Every time the dice is rolled you will be giving a chance to "bank" (see title of game). Banking means you add the
+Every time the dice is rolled you will be given a chance to "bank" (see title of game). Banking means you add the
 current score of the pot to your personal score, but you can only bank once per round. The object of the game is to end
 with more points than your opponents.
 

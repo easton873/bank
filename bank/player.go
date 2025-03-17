@@ -40,6 +40,8 @@ type PlayerStrategy interface {
 type PlayerInfo struct {
 	Score    int
 	IsBanked bool
+	Name     string
+	ID       int
 }
 
 type Player struct {
@@ -47,7 +49,7 @@ type Player struct {
 	strategy PlayerStrategy
 }
 
-func NewPlayer(player PlayerStrategy, game *Game) *Player {
+func NewPlayer(player PlayerStrategy, game *Game, id int) *Player {
 	basePlayer := &PlayerControls{}
 	result := &Player{
 		strategy: player,
@@ -61,6 +63,8 @@ func NewPlayer(player PlayerStrategy, game *Game) *Player {
 	}
 	basePlayer.Bank = bankFn
 	player.setPlayerControls(basePlayer)
+	result.Name = player.GetName()
+	result.ID = id
 	return result
 }
 

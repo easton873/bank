@@ -19,8 +19,8 @@ func NewGame(players ...PlayerStrategy) *Game {
 
 func newGameWithDie(dice Dice, players ...PlayerStrategy) *Game {
 	result := &Game{dice: dice}
-	for _, player := range players {
-		result.Players = append(result.Players, NewPlayer(player, result))
+	for id, player := range players {
+		result.Players = append(result.Players, NewPlayer(player, result, id))
 	}
 	return result
 }
