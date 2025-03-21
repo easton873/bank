@@ -47,6 +47,7 @@ type PlayerInfo struct {
 type Player struct {
 	PlayerInfo
 	strategy PlayerStrategy
+	wins     int
 }
 
 func NewPlayer(player PlayerStrategy, game *Game, id int) *Player {

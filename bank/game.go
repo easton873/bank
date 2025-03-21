@@ -147,3 +147,40 @@ func (g *Game) CopyGameInfo() GameInfo {
 		Round:   g.Round,
 	}
 }
+
+func (g *Game) Reset() {
+	g.findPlayerWithMaxScore().wins++
+	for _, player := range g.Players {
+		player.Score = 0
+	}
+}
+
+func (g *Game) findPlayerWithMaxScore() *Player {
+	maxScore := g.Players[0].Score
+	result := g.Players[0]
+	for _, player := range g.Players {
+		if player.Score > maxScore {
+			result = player
+			maxScore = player.Score
+		}
+	}
+	return result
+}
+
+func (g *Game) ActualBusiness() {
+	for range 1_000 {
+		g.playWithBuffer(FakeBuffer{})
+		g.ResetPlayers()
+		g.Reset()
+	}
+	for _, player := range g.Players {
+		fmt.Printf("Player: %s, Score: %d\n", player.strategy.GetName(), player.wins)
+	}
+}
+
+type FakeBuffer struct {
+}
+
+func (f FakeBuffer) Write(p []byte) (n int, err error) {
+	return 0, nil
+}
