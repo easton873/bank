@@ -5,7 +5,6 @@ import (
 
 	"bank/bank"
 	"bank/example"
-	"bank/ryan"
 )
 
 func main() {
@@ -20,7 +19,6 @@ func PlayGame() {
 		&example.AnotherExamplePlayer{},
 		&example.BankAfter{BankAfter: 5},
 		&example.BankAfter{BankAfter: 6},
-		&ryan.RyansAllPowerfulBot{},
 	)
 	game.Play()
 }
