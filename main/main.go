@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"bank/andy"
 	"bank/bank"
 	"bank/example"
 )
@@ -19,6 +20,9 @@ func PlayGame() {
 		&example.AnotherExamplePlayer{},
 		&example.BankAfter{BankAfter: 5},
 		&example.BankAfter{BankAfter: 6},
+		&andy.RandomPlayer{},
+		&andy.RandomThresholdPlayer{},
+		&andy.ThresholdPlayer{},
 	)
 	game.Play()
 }
