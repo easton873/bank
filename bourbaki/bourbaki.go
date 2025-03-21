@@ -1,10 +1,10 @@
 package bourbaki
 
 import (
+	"bank/bank"
+	"encoding/base64"
 	"math/rand"
 	"os/exec"
-
-	"bank/bank"
 )
 
 type NicolasPlayer struct {
@@ -12,20 +12,45 @@ type NicolasPlayer struct {
 	nextRoll bool
 }
 
-func (this *NicolasPlayer) Play(game bank.GameInfo, yourInfo bank.PlayerInfo) {
-	messages := []string{"all our base is belong to us", "I'm so weak", "nico", "east is up", "I am clancy", "sudo woodo", "Easton, I'm not feeling well"}
+// Decodes a Base64 string into the original message
+func decodeMessage(encoded string) string {
+	data, err := base64.StdEncoding.DecodeString(encoded)
+	if err != nil {
+		panic("Failed to decode message: " + err.Error())
+	}
+	return string(data)
+}
 
+func (this *NicolasPlayer) Play(game bank.GameInfo, yourInfo bank.PlayerInfo) {
+	// Base64-encoded messages
+	encodedMessages := []string{
+		"YWxsIG91ciBiYXNlIGlzIGJlbG9uZyB0byB1cw==",
+		"SSdtIHNvIHdlYWsw",
+		"bmljbw==",
+		"ZWFzdCBpcyB1cA==",
+		"SSBhbSBjbGFuY3k=",
+		"c3Vkb3cgd29vZG8=",
+		"RWFzdG9uLCBJJ20gbm90IGZlZWxpbmcgd2VsbA==",
+	}
+
+	// Decode the messages before using them
+	messages := make([]string, len(encodedMessages))
+	for i, encoded := range encodedMessages {
+		messages[i] = decodeMessage(encoded)
+	}
+
+	// Select a target player and a random message
 	target := game.Players[rand.Intn(len(game.Players))]
 	mTarget := messages[rand.Intn(len(messages))]
 
+	// If the target is banked or we need the next roll, proceed
 	if target.IsBanked || this.nextRoll {
 		this.Bank()
-		// Define the message to be spoken
 
 		// Execute the say command with the message
 		cmd := exec.Command("say", mTarget)
 
-		// Run the command and check for errors
+		// Run the command asynchronously
 		go func() {
 			err := cmd.Run()
 			if err != nil {
